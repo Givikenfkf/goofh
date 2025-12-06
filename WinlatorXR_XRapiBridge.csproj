@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <Platforms>x64</Platforms>
+    <OutputType>Library</OutputType>
+    <AssemblyName>WinlatorXR_XRapiBridge</AssemblyName>
+    <RootNamespace>WinlatorXR_XRapiBridge</RootNamespace>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+</Project>

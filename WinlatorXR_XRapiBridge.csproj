@@ -7,4 +7,9 @@
     <RootNamespace>WinlatorXR_XRapiBridge</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="stubs\BepInExStub\BepInExStub.csproj" />
+    <ProjectReference Include="stubs\UnityEngineStub\UnityEngineStub.csproj" />
+  </ItemGroup>
 </Project>

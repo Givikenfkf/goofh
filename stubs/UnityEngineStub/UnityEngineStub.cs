@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace UnityEngine
 {
+    // Base "Object" so many Unity types can inherit from it (and be passed to Destroy).
+    public class Object { }
+
     // Minimal Vector3
     public struct Vector3
     {
@@ -26,31 +29,40 @@ namespace UnityEngine
         public Color(float r,float g,float b,float a=1f){ this.r=r; this.g=g; this.b=b; this.a=a; }
     }
 
-    public class Texture2D
+    // Texture2D inherits Object so it can be passed to Object.Destroy
+    public class Texture2D : Object
     {
         public Texture2D(int w,int h) {}
         public void SetPixel(int x,int y, Color c) {}
         public void Apply() {}
     }
 
-    public class Object
+    public class ObjectHelpers
     {
         public static void Destroy(Object o) {}
     }
 
+    // Keep the same static Destroy signature used in UnityEngine.Object
+    public static class ObjectEx
+    {
+        public static void Destroy(Object o) {}
+    }
+
+    // Minimal Transform
     public class Transform
     {
         public Vector3 position;
         public Quaternion rotation;
     }
 
-    public class GameObject
+    // GameObject and Camera inherit from Object so they match Destroy param expectations
+    public class GameObject : Object
     {
         public Transform transform = new Transform();
         public static GameObject Find(string name) => null;
     }
 
-    public class Camera
+    public class Camera : Object
     {
         public Transform transform = new Transform();
         public static Camera main => null;
@@ -61,6 +73,7 @@ namespace UnityEngine
         public static bool GetButton(string name) => false;
     }
 
+    // WaitForSeconds used as IEnumerator yield instruction
     public class WaitForSeconds : IEnumerator
     {
         public WaitForSeconds(float seconds) {}
@@ -80,7 +93,12 @@ namespace UnityEngine
         public Rect(float x,float y,float w,float h){ this.x=x; this.y=y; this.width=w; this.height=h; }
     }
 
-    public class MonoBehaviour { }
+    // Make MonoBehaviour a real class that exposes StartCoroutine and Destroy abilities.
+    public class MonoBehaviour : Object
+    {
+        public IEnumerator StartCoroutine(IEnumerator routine) { return routine; }
+        public void StopCoroutine(IEnumerator routine) { }
+    }
 
     public class QuaternionWrapper { } // placeholder if referenced
 

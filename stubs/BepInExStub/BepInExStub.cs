@@ -17,8 +17,8 @@ namespace BepInEx
         public void LogDebug(string s) {}
     }
 
-    // BaseUnityPlugin stub — at runtime the real BepInEx BaseUnityPlugin will be used.
-    public class BaseUnityPlugin
+    // BaseUnityPlugin stub — inherit from UnityEngine.MonoBehaviour so StartCoroutine is available.
+    public class BaseUnityPlugin : UnityEngine.MonoBehaviour
     {
         protected ManualLogger Logger { get; } = new ManualLogger();
 

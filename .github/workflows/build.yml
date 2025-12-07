@@ -1,0 +1,26 @@
+name: Build WinlatorXR DLL
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
+
+    - name: Build DLL
+      run: dotnet build WinlatorXR_XRapiBridge.csproj -c Release -r win-x64 --no-self-contained
+
+    - name: Upload DLL
+      uses: actions/upload-artifact@v3
+      with:
+        name: WinlatorXR-XRapiBridge
+        path: WinlatorXR_XRapiBridge/bin/Release/net472/win-x64/WinlatorXR_XRapiBridge.dll

@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -19,8 +19,10 @@ jobs:
     - name: Build DLL
       run: dotnet build WinlatorXR_XRapiBridge.csproj -c Release -r win-x64 --no-self-contained
 
-    - name: Upload DLL
-      uses: actions/upload-artifact@v3
+    - name: Upload built DLL
+      uses: actions/upload-artifact@v4
       with:
         name: WinlatorXR-XRapiBridge
-        path: WinlatorXR_XRapiBridge/bin/Release/net472/win-x64/WinlatorXR_XRapiBridge.dll
+        path: |
+          **/bin/Release/net472/win-x64/*.dll
+          **/bin/Release/net472/*.dll
